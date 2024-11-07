@@ -1,5 +1,6 @@
 package com.example.QLKS.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -9,15 +10,17 @@ public class SuDungDichVu {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "maSuDungDichVu")
     private int maSuDungDichVu;
-    @ManyToOne
-    @JoinColumn(name = "maDatPhong")
-    private Booking booking;
+
     @ManyToOne
     @JoinColumn(name = "maDichVu")
     private DichVu dichVu;
+
+
     @ManyToOne
-    @JoinColumn(name = "maPhong")
-    private Phong phong;
+    @JoinColumn(name = "maDatPhong")
+    @JsonIgnore
+    private Booking booking;
+
     @Column(name = "soLuong")
     private int soLuong;
 
@@ -41,13 +44,6 @@ public class SuDungDichVu {
         this.dichVu = dichVu;
     }
 
-    public Phong getPhong() {
-        return phong;
-    }
-
-    public void setPhong(Phong phong) {
-        this.phong = phong;
-    }
 
     public int getSoLuong() {
         return soLuong;

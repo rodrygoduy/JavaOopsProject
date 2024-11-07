@@ -1,7 +1,10 @@
 package com.example.QLKS.entities;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.util.Date;
+import java.util.List;
+
 @Entity
 @Table(name = "Booking")
 public class Booking {
@@ -9,7 +12,9 @@ public class Booking {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int maDatPhong ;
 
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date ngayNhanPhong;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
     private Date ngayTraPhong;
     @ManyToOne
     @JoinColumn(name = "maKhachHang")
@@ -17,18 +22,26 @@ public class Booking {
     @ManyToOne
     @JoinColumn(name = "maPhong")
     private Phong phong;
-    @ManyToOne
-    @JoinColumn(name = "maNhanVien")
-    private NhanVien nhanVien;
     private double giaPhongThucTe;
     @Enumerated(EnumType.STRING)
     @Column(name = "trangThaiDatPhong")
     private TrangThaiDatPhong trangThaiDatPhong;
+
+    @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<SuDungDichVu> suDungDichVuList;
     public enum TrangThaiDatPhong {
         da_dat,
         dang_su_dung,
         con_trong,
         dang_don_dep
+    }
+
+    public List<SuDungDichVu> getSuDungDichVuList() {
+        return suDungDichVuList;
+    }
+
+    public void setSuDungDichVuList(List<SuDungDichVu> suDungDichVuList) {
+        this.suDungDichVuList = suDungDichVuList;
     }
 
     public int getMaDatPhong() {
@@ -67,13 +80,6 @@ public class Booking {
         this.phong = phong;
     }
 
-    public NhanVien getNhanVien() {
-        return nhanVien;
-    }
-
-    public void setNhanVien(NhanVien nhanVien) {
-        this.nhanVien = nhanVien;
-    }
 
     public double getGiaPhongThucTe() {
         return giaPhongThucTe;

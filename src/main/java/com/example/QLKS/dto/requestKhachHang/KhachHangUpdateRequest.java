@@ -1,27 +1,14 @@
-package com.example.QLKS.entities;
+package com.example.QLKS.dto.requestKhachHang;
 
-import jakarta.persistence.*;
 import java.time.LocalDate;
-@Entity
-@Table(name = "KhachHang")
-public class KhachHang {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int maKhachHang;
 
+public class KhachHangUpdateRequest {
     private String hoTen;
     private String diaChi;
     private String soDienThoai;
     private LocalDate namSinh;
     private String giayToTuyThan;
 
-    public int getMaKhachHang() {
-        return maKhachHang;
-    }
-
-    public void setMaKhachHang(int maKhachHang) {
-        this.maKhachHang = maKhachHang;
-    }
 
     public LocalDate getNamSinh() {
         return namSinh;
@@ -55,8 +42,6 @@ public class KhachHang {
         this.soDienThoai = soDienThoai;
     }
 
-
-
     public String getGiayToTuyThan() {
         return giayToTuyThan;
     }
@@ -64,4 +49,5 @@ public class KhachHang {
     public void setGiayToTuyThan(String giayToTuyThan) {
         this.giayToTuyThan = giayToTuyThan;
     }
+
 }

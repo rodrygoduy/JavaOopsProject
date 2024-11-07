@@ -1,4 +1,5 @@
 package com.example.QLKS.entities;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import java.util.Date;
 @Entity
@@ -12,6 +13,7 @@ public class HoaDon {
     @JoinColumn(name = "maDatPhong")
     private Booking booking;
     @Column(name = "thoiGianLapHoaDon")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     @Temporal(TemporalType.TIMESTAMP)
     private Date thoiGianLapHoaDon;
     @Enumerated(EnumType.STRING)
@@ -23,10 +25,10 @@ public class HoaDon {
     @Column(name = "trangThaiThanhToan")
     private TrangThaiThanhToan trangThaiThanhToan;
     public enum PhuongThucThanhToan {
-        TIEN_MAT, THE_NGAN_HANG
+        tien_mat, the_ngan_hang
     }
     public enum TrangThaiThanhToan {
-        CHUA_THANH_TOAN, DA_THANH_TOAN
+        chua_thanh_toan, da_thanh_toan
     }
 
     public int getMaHoaDon() {
