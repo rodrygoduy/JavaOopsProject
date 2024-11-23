@@ -26,6 +26,21 @@ public class Booking {
     @Enumerated(EnumType.STRING)
     @Column(name = "trangThaiDatPhong")
     private TrangThaiDatPhong trangThaiDatPhong;
+    @ManyToOne
+    @JoinColumn(name = "maNhanVien")
+    private NhanVien nhanVien;
+
+    public void setMaDatPhong(int maDatPhong) {
+        this.maDatPhong = maDatPhong;
+    }
+
+    public NhanVien getNhanVien() {
+        return nhanVien;
+    }
+
+    public void setNhanVien(NhanVien nhanVien) {
+        this.nhanVien = nhanVien;
+    }
 
     @OneToMany(mappedBy = "booking", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SuDungDichVu> suDungDichVuList;

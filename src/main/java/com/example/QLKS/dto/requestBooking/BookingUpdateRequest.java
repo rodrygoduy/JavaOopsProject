@@ -11,8 +11,17 @@ public class BookingUpdateRequest {
     private Date ngayTraPhong;
     private int maKhachHang;
     private int maPhong;
+    private int maNhanVien;
     private double giaPhongThucTe;
     private String trangThaiDatPhong;
+
+    public int getMaNhanVien() {
+        return maNhanVien;
+    }
+
+    public void setMaNhanVien(int maNhanVien) {
+        this.maNhanVien = maNhanVien;
+    }
 
     public Date getNgayNhanPhong() {
         return ngayNhanPhong;

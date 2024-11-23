@@ -1,9 +1,7 @@
 package com.example.QLKS.controllers;
 
-import com.example.QLKS.dto.requestDichVu.DichVuUpdateRequest;
 import com.example.QLKS.dto.requestHoaDon.HoaDonCreationRequest;
 import com.example.QLKS.dto.requestHoaDon.HoaDonUpdateRequest;
-import com.example.QLKS.entities.DichVu;
 import com.example.QLKS.entities.HoaDon;
 import com.example.QLKS.service.HoaDonService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -10,6 +10,16 @@ public class BookingCreateRequest {
     private Date ngayTraPhong;
     private int maKhachHang;
     private int maPhong;
+
+    public int getMaNhanVien() {
+        return maNhanVien;
+    }
+
+    public void setMaNhanVien(int maNhanVien) {
+        this.maNhanVien = maNhanVien;
+    }
+
+    private int maNhanVien;
     private double giaPhongThucTe;
     private String trangThaiDatPhong;
 

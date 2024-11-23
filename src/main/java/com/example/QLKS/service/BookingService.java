@@ -2,12 +2,10 @@ package com.example.QLKS.service;
 
 import com.example.QLKS.dto.requestBooking.BookingCreateRequest;
 import com.example.QLKS.dto.requestBooking.BookingUpdateRequest;
-import com.example.QLKS.entities.Booking;
-import com.example.QLKS.entities.KhachHang;
-import com.example.QLKS.entities.Phong;
-import com.example.QLKS.entities.SuDungDichVu;
+import com.example.QLKS.entities.*;
 import com.example.QLKS.repository.BookingRepository;
 import com.example.QLKS.repository.KhachHangRepository;
+import com.example.QLKS.repository.NhanVienRepository;
 import com.example.QLKS.repository.PhongRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -23,15 +21,19 @@ public class BookingService {
     private KhachHangRepository khachHangRepository;
     @Autowired
     private PhongRepository phongRepository;
+    @Autowired
+    private NhanVienRepository nhanVienRepository;
 
     public Booking createBooking(BookingCreateRequest request) {
         KhachHang khachHang = khachHangRepository.findById(request.getMaKhachHang()).orElseThrow(() -> new RuntimeException("Khach hang khong ton tai"));
- Phong phong = phongRepository.findById(request.getMaPhong()).orElseThrow(()-> new RuntimeException("Phòng không tồn tại"));
+        NhanVien nhanVien = nhanVienRepository.findById(request.getMaNhanVien()).orElseThrow(() -> new RuntimeException("Nhan vien ton tai"));
+        Phong phong = phongRepository.findById(request.getMaPhong()).orElseThrow(()-> new RuntimeException("Phòng không tồn tại"));
         Booking booking = new Booking();
         booking.setNgayNhanPhong(request.getNgayNhanPhong());
         booking.setNgayTraPhong(request.getNgayTraPhong());
         booking.setKhachHang(khachHang);
         booking.setPhong(phong);
+        booking.setNhanVien(nhanVien);
         booking.setGiaPhongThucTe(request.getGiaPhongThucTe());
         booking.setTrangThaiDatPhong(Booking.TrangThaiDatPhong.valueOf(request.getTrangThaiDatPhong()));
         return bookingRepository.save(booking);
@@ -41,7 +43,7 @@ public class BookingService {
     }
     public Booking updateBooking( int maDatPhong , BookingUpdateRequest request){
         Booking booking = bookingRepository.findById(maDatPhong)
-        .orElseThrow(()-> new RuntimeException("Booking này không tồn tại"));
+                .orElseThrow(()-> new RuntimeException("Booking này không tồn tại"));
         if (request.getNgayNhanPhong() != null) {
             booking.setNgayNhanPhong(request.getNgayNhanPhong());
         }
@@ -63,6 +65,11 @@ public class BookingService {
             Phong phong = phongRepository.findById(request.getMaPhong())
                     .orElseThrow(() -> new RuntimeException("Phòng không tồn tại"));
             booking.setPhong(phong);
+        }
+        if (request.getMaNhanVien() > 0) {
+            NhanVien nhanVien = nhanVienRepository.findById(request.getMaNhanVien())
+                    .orElseThrow(() -> new RuntimeException("Nhân viên không tồn tại"));
+            booking.setNhanVien(nhanVien);
         }
         return bookingRepository.save(booking);
     }
